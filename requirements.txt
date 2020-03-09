@@ -1,0 +1,13 @@
+#azureml==0.2.7
+azureml-core==1.0.83
+#azureml-sdk==1.0.83
+azureml-dataprep==1.1.35
+
+pandas==1.0.1
+#scikit-learn==0.22.1
+scikit-learn==0.20.3
+scipy==1.4.1
+joblib==0.14.1
+
+azure-cognitiveservices-vision-face==0.4.0
+Pillow==6.2.0
