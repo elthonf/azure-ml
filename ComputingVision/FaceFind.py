@@ -19,7 +19,6 @@ def getRectangle(faceDictionary):
     return ((left, top), (right, bottom))
 
 
-
 if __name__ == "__main__":
     #Cria o Client
     KEY = "XXXX"  # Coloque aqui sua chave
@@ -59,5 +58,4 @@ if __name__ == "__main__":
         img.show()
 
     pass
-
 
