@@ -30,12 +30,11 @@ if __name__ == "__main__":
 
 
     # Experimente  mudar o arquivo abaixo
-    #imagefile = "./face_varias.jpg"
-    imagefile = "./face_unica.jpg"
+    #imagefile = "../datasets/facial/face_varias.jpg"
+    imagefile = "../datasets/facial/face_unica.jpg"
 
     with open(imagefile, 'r+b') as w:
         detected_faces = face_client.face.detect_with_stream(image=w)
-
 
     img = Image.open(imagefile)
     draw = ImageDraw.Draw(img)
@@ -44,3 +43,4 @@ if __name__ == "__main__":
         draw.rectangle(getRectangle(face), outline='red')
     img.show()
 
+    pass

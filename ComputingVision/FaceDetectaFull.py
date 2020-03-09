@@ -37,7 +37,7 @@ if __name__ == "__main__":
     ENDPOINT = azurekeys["FacialDetection"]["ENDPOINT"]  #Coloque aqui seu endpoint (Ponto de Extremidade)
     face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY))
 
-    imagefile = "./face_unica.jpg"
+    imagefile = "../datasets/facial/face_unica.jpg"
 
     return_face_attributes = ["age", "gender", "headPose", "smile", "hair", "accessories", "facialHair", "glasses", "emotion",  "noise", "occlusion", "blur", "makeup"]
     with open(imagefile, 'r+b') as w:

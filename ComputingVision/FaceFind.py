@@ -28,9 +28,9 @@ if __name__ == "__main__":
     ENDPOINT = azurekeys["FacialDetection"]["ENDPOINT"]  #Coloque aqui seu endpoint (Ponto de Extremidade)
     face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY))
 
-    imagefile01 = "./elthon00.jpg" #Imagem com a face única
+    imagefile01 = "../datasets/facial/elthon00.jpg" #Imagem com a face única
     NomeDoDonoDoRosto = "Elthon" #Nome da pessoa que está na face única
-    imagefile02 = "./elthon03.jpg" #Imagem com as faces a procurar
+    imagefile02 = "../datasets/facial/elthon03.jpg" #Imagem com as faces a procurar
 
     #Identifica FaceIDs da imagem 01
     with open(imagefile01, 'r+b') as w:
