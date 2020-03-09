@@ -29,6 +29,7 @@ if __name__ == "__main__":
     face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY))
 
     imagefile01 = "./elthon00.jpg" #Imagem com a face única
+    NomeDoDonoDoRosto = "Elthon" #Nome da pessoa que está na face única
     imagefile02 = "./elthon03.jpg" #Imagem com as faces a procurar
 
     #Identifica FaceIDs da imagem 01
@@ -37,7 +38,7 @@ if __name__ == "__main__":
 
     for face in detected_faces01:
         face_to_find = face.face_id
-        print("**** Detected face id [{0}] on : {1}".format(face.face_id, face.face_rectangle))
+        print("**** [{0}] foi detectado com face id [{1}] em : {2}".format(NomeDoDonoDoRosto, face.face_id, face.face_rectangle))
 
     # Identifica FaceIDs da imagem 02
     with open(imagefile02, 'r+b') as w:
@@ -50,6 +51,8 @@ if __name__ == "__main__":
     #Chama API para identificar faces similares
     similar_faces = face_client.face.find_similar(face_id=face_to_find, face_ids=faces_to_compare)
 
+
+
     if not similar_faces[0]:
         print('Sem rostos similares na segunda imagem.')
     else:
@@ -59,9 +62,12 @@ if __name__ == "__main__":
         draw = ImageDraw.Draw(img)
         img = Image.open(imagefile02)
         draw = ImageDraw.Draw(img)
-        for face in detected_faces02:
-            if face.face_id in list(map(lambda x: x.face_id, similar_faces)):
-                draw.rectangle(getRectangle(face), outline='red')
+        for face in detected_faces02: #Loop de todas as faces na foto 2
+            if face.face_id in list(map(lambda x: x.face_id, similar_faces)): #Se a face estiver entre as similares
+                draw.rectangle(xy=getRectangle(face), outline='red')
+                draw.text(xy=(face.face_rectangle.left, face.face_rectangle.top + face.face_rectangle.height),
+                          text=NomeDoDonoDoRosto,
+                          fill="red")
         img.show()
 
     pass
