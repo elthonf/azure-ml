@@ -8,7 +8,7 @@ if __name__ == "__main__":
     # Carrega os dados
     mydf = pd.read_csv('../../../datasets/statistical/BaseUnknown03.csv')
 
-    mysample = mydf.sample(6).drop('nome', axis=1)
+    mysample = mydf.sample(6).drop('nome', axis=1) #Obtém X exemplos aleatórios
     # Atenção! Verificar se o teu modelo possui a coluna etnia, caso contrário, também é necessário remover
     # com a instrução a seguir:
     #mysample = mysample.sample(20).drop('etnia', axis=1)

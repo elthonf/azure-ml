@@ -1,4 +1,3 @@
-#
 from azure.cognitiveservices.vision.face import FaceClient
 from msrest.authentication import CognitiveServicesCredentials
 from PIL import Image, ImageDraw
@@ -21,14 +20,12 @@ def getRectangle(faceDictionary):
 
 
 
-
 if __name__ == "__main__":
     #Cria o Client
     KEY = "XXXX"  # Coloque aqui sua chave
     ENDPOINT = "https://XXXX/"  # Coloque aqui seu endpoint (Ponto de Extremidade)
     face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY))
 
-    #imagefile = "./ComputingVision/face_varias.jpg"
     imagefile01 = "./elthon00.jpg"
     imagefile02 = "./elthon03.jpg"
 

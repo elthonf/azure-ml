@@ -1,8 +1,8 @@
-#
 from azure.cognitiveservices.vision.face import FaceClient
 from msrest.authentication import CognitiveServicesCredentials
 from PIL import Image, ImageDraw
 import json
+
 
 def getRectangle(faceDictionary):
     """
@@ -37,7 +37,6 @@ if __name__ == "__main__":
 
     #imagefile = "./face_varias.jpg"
     imagefile = "./face_unica.jpg"
-    imagefile = './ComputingVision/elthon00.jpg'
 
     return_face_attributes = ["age", "gender", "headPose", "smile", "hair", "accessories", "facialHair", "glasses", "emotion",  "noise", "occlusion", "blur", "makeup"]
     with open(imagefile, 'r+b') as w:

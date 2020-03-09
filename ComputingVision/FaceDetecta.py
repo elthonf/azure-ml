@@ -1,8 +1,8 @@
-#
 from azure.cognitiveservices.vision.face import FaceClient
 from msrest.authentication import CognitiveServicesCredentials
 from PIL import Image, ImageDraw
 import json
+
 
 def getRectangle(faceDictionary):
     """
@@ -19,8 +19,6 @@ def getRectangle(faceDictionary):
     return ((left, top), (right, bottom))
 
 
-
-
 if __name__ == "__main__":
     #Cria o Client
     KEY = "XXXX" #Coloque aqui sua chave
@@ -28,8 +26,9 @@ if __name__ == "__main__":
     face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY))
 
 
-    #imagefile = "./face_varias.jpg"
-    imagefile = "./face_unica.jpg"
+    # Experimente  mudar o arquivo abaixo
+    imagefile = "./face_varias.jpg"
+    #imagefile = "./face_unica.jpg"
 
     with open(imagefile, 'r+b') as w:
         detected_faces = face_client.face.detect_with_stream(image=w)
