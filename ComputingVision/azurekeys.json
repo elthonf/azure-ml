@@ -1,0 +1,6 @@
+{
+  "FacialDetection": {
+    "KEY": "XXXXXXXX",
+    "ENDPOINT": "https://XXXXXXXX/"
+  }
+}

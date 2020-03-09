@@ -20,15 +20,18 @@ def getRectangle(faceDictionary):
 
 
 if __name__ == "__main__":
-    #Cria o Client
-    KEY = "XXXX" #Coloque aqui sua chave
-    ENDPOINT = "https://XXXXX/" #Coloque aqui seu endpoint (Ponto de Extremidade)
+    #Cria o Client da API
+    with open("./azurekeys.json", 'r') as jsonfile:
+        azurekeys = json.load(jsonfile)
+
+    KEY = azurekeys["FacialDetection"]["KEY"] #Coloque aqui sua chave
+    ENDPOINT = azurekeys["FacialDetection"]["ENDPOINT"]  #Coloque aqui seu endpoint (Ponto de Extremidade)
     face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY))
 
 
     # Experimente  mudar o arquivo abaixo
-    imagefile = "./face_varias.jpg"
-    #imagefile = "./face_unica.jpg"
+    #imagefile = "./face_varias.jpg"
+    imagefile = "./face_unica.jpg"
 
     with open(imagefile, 'r+b') as w:
         detected_faces = face_client.face.detect_with_stream(image=w)

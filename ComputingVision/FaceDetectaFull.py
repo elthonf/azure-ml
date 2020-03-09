@@ -29,13 +29,14 @@ def drawCrossesOnFace(faceLandmarks, size=2, color='white'):
     pass
 
 if __name__ == "__main__":
-    #Cria o Client
-    KEY = "XXXXX" #Coloque aqui sua chave
-    ENDPOINT = "XXXXXX/" #Coloque aqui seu endpoint (Ponto de Extremidade)
+    #Cria o Client da API
+    with open("./azurekeys.json", 'r') as jsonfile:
+        azurekeys = json.load(jsonfile)
+
+    KEY = azurekeys["FacialDetection"]["KEY"] #Coloque aqui sua chave
+    ENDPOINT = azurekeys["FacialDetection"]["ENDPOINT"]  #Coloque aqui seu endpoint (Ponto de Extremidade)
     face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY))
 
-
-    #imagefile = "./face_varias.jpg"
     imagefile = "./face_unica.jpg"
 
     return_face_attributes = ["age", "gender", "headPose", "smile", "hair", "accessories", "facialHair", "glasses", "emotion",  "noise", "occlusion", "blur", "makeup"]

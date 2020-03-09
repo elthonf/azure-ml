@@ -20,13 +20,16 @@ def getRectangle(faceDictionary):
 
 
 if __name__ == "__main__":
-    #Cria o Client
-    KEY = "XXXX"  # Coloque aqui sua chave
-    ENDPOINT = "https://XXXX/"  # Coloque aqui seu endpoint (Ponto de Extremidade)
+    #Cria o Client da API
+    with open("./azurekeys.json", 'r') as jsonfile:
+        azurekeys = json.load(jsonfile)
+
+    KEY = azurekeys["FacialDetection"]["KEY"] #Coloque aqui sua chave
+    ENDPOINT = azurekeys["FacialDetection"]["ENDPOINT"]  #Coloque aqui seu endpoint (Ponto de Extremidade)
     face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY))
 
-    imagefile01 = "./elthon00.jpg"
-    imagefile02 = "./elthon03.jpg"
+    imagefile01 = "./elthon00.jpg" #Imagem com a face única
+    imagefile02 = "./elthon03.jpg" #Imagem com as faces a procurar
 
     #Identifica FaceIDs da imagem 01
     with open(imagefile01, 'r+b') as w:
@@ -44,12 +47,16 @@ if __name__ == "__main__":
         faces_to_compare.append(face.face_id)
         print("**** Detected face id [{0}] on : {1}".format(face.face_id, face.face_rectangle))
 
-    img = Image.open(imagefile02)
-    draw = ImageDraw.Draw(img)
+    #Chama API para identificar faces similares
     similar_faces = face_client.face.find_similar(face_id=face_to_find, face_ids=faces_to_compare)
+
     if not similar_faces[0]:
         print('Sem rostos similares na segunda imagem.')
     else:
+        for similar in similar_faces:
+            print("Face [{0}] similar à face [{1}] com {2} de confiança.".format( face_to_find, similar.face_id, similar.confidence))
+        img = Image.open(imagefile02)
+        draw = ImageDraw.Draw(img)
         img = Image.open(imagefile02)
         draw = ImageDraw.Draw(img)
         for face in detected_faces02:
