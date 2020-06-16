@@ -24,14 +24,14 @@ workspace = Workspace(subscription_id, resource_group, workspace_name)
 
 
 def get_a_funnyName():
-    f = open("../../../datasets/names/funnynames.txt", "r")
+    f = open("../../datasets/names/funnynames.txt", "r")
     nomes = f.readlines()
     return random.choice(nomes).rstrip('\n')
 
 
 if __name__ == "__main__":
     # Carrega os dados
-    mydf = pd.read_csv('../../../datasets/statistical/BaseDefault01.csv')
+    mydf = pd.read_csv('../../datasets/statistical/BaseDefault01.csv')
     #mydf = pd.read_csv('datasets/statistical/BaseDefault01.csv')
 
     # Identifica no dataset as variáveis independentes e a variavel alvo
