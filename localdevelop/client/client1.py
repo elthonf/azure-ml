@@ -14,7 +14,7 @@ if __name__ == "__main__":
     #mysample = mysample.sample(20).drop('etnia', axis=1)
 
     # Prepara chamada
-    url = "http://XXXXXXXXX" #Coloque aqui o URL da Azure
+    url = "http://XXXXXXXXX" #Coloque aqui a URL da Azure
     headers = {'Content-Type': 'application/json'}
     #Caso seja com chave, adicionar o código abaixo
     #authKey = "ohx16XDHu3gOEDat8EqLHRd0YGpAhgLV" #Coloque aqui a chave do Web Servicec
@@ -26,6 +26,7 @@ if __name__ == "__main__":
     response = requests.request("POST", url, headers=headers, data=conteudo)
     print("Resposta da API:")
     print(response.text.encode('utf8').decode())
+    print("Esta atividade foi feita por: Elthon Freitas") #Não se esqueça de alterar aqui, para aparecer o teu nome na execução.
     pass
 
 
