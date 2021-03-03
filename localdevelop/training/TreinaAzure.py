@@ -17,8 +17,8 @@ from azureml.core import Workspace, Dataset
 
 #Trocar os códigos abaixo pelos da sua instância!
 subscription_id = '5298dbd8-b7e6-432a-b8fc-828328490c29'
-resource_group = 'APIs'
-workspace_name = 'revisao'
+resource_group = '14IA'
+workspace_name = 'WSML14IA'
 
 workspace = Workspace(subscription_id, resource_group, workspace_name)
 
@@ -62,7 +62,7 @@ if __name__ == "__main__":
     run.log("criterion", clf.criterion)
     run.log("n_estimators", clf.n_estimators)
     run.log("min_samples_leaf", clf.min_samples_leaf)
-    run.log("max_depth", clf.max_depth)
+    run.log("max_depth",  str(clf.max_depth))
     run.log_list("Inputs", independentcols)
 
     model_name = "model_risco_RF_local01.pkl"
@@ -76,10 +76,19 @@ if __name__ == "__main__":
 
     pass
 
-    # Treina modelo 02 (Regressor)
+    # ATIVIDADE:
+    # Treinar modelo 02 (Regressor sem a variavel etnia)
     independentcols = ['renda', 'idade', 'sexo', 'casapropria', 'outrasrendas', 'estadocivil', 'escolaridade']
 
-    run = experiment.start_logging()
-    run.log("Tipo", "Regressor")
+    # Usar o classificador acima como modelo
+    # Gravar log de algumas variáveis
+    # Gravar log da acurácia
+    # Exportar o modelo em arquivo
+    # Enviar para AZURE Cloud
+
+    #run = experiment.start_logging()
+    #run.log("Tipo", "Regressor")
+
+
 
     pass
