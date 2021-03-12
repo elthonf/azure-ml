@@ -8,4 +8,4 @@ scipy==1.4.1
 joblib==1.0.1
 numpy==1.13.3
 azure-cognitiveservices-vision-face==0.4.1
-Pillow==7.0.0
+Pillow==7.1.0
