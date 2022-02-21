@@ -49,10 +49,10 @@ def run(request = request):
     if campos.shape[0] == 0:
         return "Dados de chamada da API estão incorretos.", 400
 
-    for col in modelo01.independentcols:
+    for col in meumodelo.independentcols:
         if col not in campos.columns:
             campos[col] = 0
-    x = campos[modelo01.independentcols]
+    x = campos[meumodelo.independentcols]
 
     prediction = meumodelo.predict(x)
     try:
