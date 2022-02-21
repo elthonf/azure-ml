@@ -50,3 +50,12 @@ az acr create --resource-group $RES_GROUP --location eastus --sku Standard --nam
 ```
 az acr build --registry $ACR_NAME --image supermodelo:latest --file ./dockerfile.txt  .
 ```
+
+<hr />
+
+## 8 *- Criar KeyVault
+```
+AKV_NAME=mykeyvault
+echo Key Vault = $AKV_NAME
+az keyvault create --resource-group $RES_GROUP --name $ACR_NAME
+```
