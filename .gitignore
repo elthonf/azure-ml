@@ -130,3 +130,6 @@ dmypy.json
 
 
 outputs
+
+ComputingVision/azurekeys-emf.json
+ComputingVision/FaceFind-emf.py
