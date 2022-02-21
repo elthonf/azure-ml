@@ -55,7 +55,7 @@ az acr build --registry $ACR_NAME --image supermodelo:latest --file ./dockerfile
 
 ## 8 *- Criar KeyVault
 ```
-AKV_NAME=mykeyvault
+AKV_NAME=kv$(python3 myuuid.py)
 echo Key Vault = $AKV_NAME
-az keyvault create --resource-group $RES_GROUP --name $ACR_NAME
+az keyvault create --resource-group $RES_GROUP --name AKV_NAME
 ```

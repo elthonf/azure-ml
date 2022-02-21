@@ -1,2 +1,2 @@
 import uuid
-print(str(uuid.uuid4())[:20])
+print(str(uuid.uuid4()).replace('-', '')[:16])
