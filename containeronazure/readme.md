@@ -43,24 +43,20 @@ az group create --resource-group $RES_GROUP --location eastus
 ## 6 - Crie o container registry (ACR) ou use um já existente dentro do Resource Group
 ```
 ACR_NAME=
+#ou
+ACR_NAME=acr$(python3 myuuid.py)
 az acr create --resource-group $RES_GROUP --location eastus --sku Standard --name $ACR_NAME
 ```
 
-## 7 - BUILD!! Gere a imagem
-```
-az acr build --registry $ACR_NAME --image supermodelo:latest --file ./dockerfile.txt  .
-```
 
-<hr />
-
-## 8 - Criar KeyVault
+## 7 - Criar KeyVault
 ```
 AKV_NAME=kv$(python3 myuuid.py)
 echo Key Vault = $AKV_NAME
 az keyvault create --resource-group $RES_GROUP --name $AKV_NAME
 ```
 
-## 9 - Cria senha e usuario no KV do service principal, usando os usuários do ACR
+## 8 - Cria senha e usuario no KV do service principal, usando os usuários do ACR
 ```
 az keyvault secret set \
   --vault-name $AKV_NAME \
@@ -85,7 +81,15 @@ echo $(az keyvault secret show --vault-name $AKV_NAME --name $ACR_NAME-pull-usr 
 echo $(az keyvault secret show --vault-name $AKV_NAME --name $ACR_NAME-pull-pwd --query value -o tsv)
 ```
 
-## 11 - Por sim, cria os contêineres
+## 9 - BUILD!! Gera a imagem
+```
+az acr build --registry $ACR_NAME --image supermodelo:latest --file ./dockerfile.txt  .
+```
+
+<hr />
+
+
+## 10 - Por fim, cria os contêineres
 ```
 az container create \
   --resource-group $RES_GROUP \
