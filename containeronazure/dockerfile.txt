@@ -18,4 +18,4 @@ COPY /modelo /score/modelo
 EXPOSE 80
 WORKDIR /score
 
-CMD ["python", "server.js"]
+CMD ["python", "modelo/predictflask.py"]

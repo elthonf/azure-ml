@@ -53,9 +53,58 @@ az acr build --registry $ACR_NAME --image supermodelo:latest --file ./dockerfile
 
 <hr />
 
-## 8 *- Criar KeyVault
+## 8 - Criar KeyVault
 ```
 AKV_NAME=kv$(python3 myuuid.py)
 echo Key Vault = $AKV_NAME
-az keyvault create --resource-group $RES_GROUP --name AKV_NAME
+az keyvault create --resource-group $RES_GROUP --name $AKV_NAME
+```
+
+## 9 - Cria senha e usuario no KV do service principal, usando os usuários do ACR
+```
+az keyvault secret set \
+  --vault-name $AKV_NAME \
+  --name $ACR_NAME-pull-pwd \
+  --value $(az ad sp create-for-rbac \
+              --name $ACR_NAME-pull \
+              --scopes $(az acr show --name $ACR_NAME --query id --output tsv) \
+              --role acrpull \
+              --query password \
+              --output tsv)
+
+az keyvault secret set \
+  --vault-name $AKV_NAME \
+  --name $ACR_NAME-pull-usr \
+  --value $(az ad sp list --display-name $ACR_NAME-pull --query [].appId --output tsv)
+``` 
+
+para testar e obter usuario e senha::
+
+```
+echo $(az keyvault secret show --vault-name $AKV_NAME --name $ACR_NAME-pull-usr --query value -o tsv)
+echo $(az keyvault secret show --vault-name $AKV_NAME --name $ACR_NAME-pull-pwd --query value -o tsv)
+```
+
+## 11 - Por sim, cria os contêineres
+```
+az container create \
+  --resource-group $RES_GROUP \
+  --name acr-tasks \
+  --image $ACR_NAME.azurecr.io/supermodelo:latest \
+  --registry-login-server $ACR_NAME.azurecr.io \
+  --registry-username $(az keyvault secret show --vault-name $AKV_NAME --name $ACR_NAME-pull-usr --query value -o tsv) \
+  --registry-password $(az keyvault secret show --vault-name $AKV_NAME --name $ACR_NAME-pull-pwd --query value -o tsv) \
+  --dns-name-label acr-tasks-$ACR_NAME \
+  --query "{FQDN:ipAddress.fqdn}" \
+  --output table
+```
+
+
+## Extras:
+
+```
+#To attach
+az container attach --resource-group $RES_GROUP --name acr-tasks
+
+az container exec --exec-command "/bin/bash" --resource-group $RES_GROUP --name acr-tasks
 ```
