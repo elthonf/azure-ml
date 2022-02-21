@@ -26,3 +26,25 @@ git clone https://github.com/elthonf/azure-ml.git
 cd azure-ml/containeronazure
 ```
 
+## 4 - Faça Upload do teu modelo 
+
+## 4 - Defina a variável RES_GROUP (Resource Group)
+```
+RES_GROUP=
+```
+
+## 5 - Caso o grupo não exista, crie-o
+```
+az group create --resource-group $RES_GROUP --location eastus
+```
+
+## 6 - Crie o container registry (ACR) ou use um já existente dentro do Resource Group
+```
+ACR_NAME=
+az acr create --resource-group $RES_GROUP --location eastus --sku Standard --name $ACR_NAME
+```
+
+## 7 - BUILD!! Gere a imagem
+```
+az acre
+```
