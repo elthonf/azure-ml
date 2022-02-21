@@ -1,0 +1,21 @@
+FROM python:3.7
+MAINTAINER elthonf@gmail.com
+
+RUN apt-get update
+RUN apt-get install unzip
+RUN apt-get install libaio1
+RUN apt-get install nano
+
+RUN mkdir -p /score
+RUN mkdir -p /score/modelo
+
+COPY requirements.txt /score
+RUN pip install --upgrade pip
+RUN pip install -r /score/requirements.txt
+
+COPY /modelo /score/modelo
+
+EXPOSE 80
+WORKDIR /score
+
+CMD ["python", "server.js"]

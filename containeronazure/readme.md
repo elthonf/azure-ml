@@ -26,7 +26,9 @@ git clone https://github.com/elthonf/azure-ml.git
 cd azure-ml/containeronazure
 ```
 
-## 4 - Faça Upload do teu modelo 
+## 3.1 - Sobreescreva o arquivo do modelo
+Agora, vc deve substituir o arquivo `modelo/nome_arquivo.pkl`
+
 
 ## 4 - Defina a variável RES_GROUP (Resource Group)
 ```
@@ -46,5 +48,5 @@ az acr create --resource-group $RES_GROUP --location eastus --sku Standard --nam
 
 ## 7 - BUILD!! Gere a imagem
 ```
-az acre
+az acr build --registry $ACR_NAME --image supermodelo:latest --file ./dockerfile.txt  .
 ```
