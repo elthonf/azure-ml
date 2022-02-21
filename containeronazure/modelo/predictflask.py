@@ -39,7 +39,7 @@ def init():
     #meumodelo = joblib.load( './nome_arquivo.pkl')
     meumodelo = joblib.load( './modelo/nome_arquivo.pkl')
 
-@app.route("/run", methods=['POST'])
+@app.route("/score", methods=['POST'])
 def run(request = request):
     print(request.values)
 

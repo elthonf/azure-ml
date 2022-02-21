@@ -27,7 +27,9 @@ cd azure-ml/containeronazure
 ```
 
 ## 3.1 - Sobreescreva o arquivo do modelo
-Agora, vc deve substituir o arquivo `modelo/nome_arquivo.pkl`
+Agora, vc deve substituir o arquivo `azure-ml/containeronazure/modelo/nome_arquivo.pkl` pelo seu modelo.
+
+Isso é interessante pois o arquivo atual, é menor (apenas 16MB) para caber no github, enquanto o seu modelo real pode ter muitos MBs de tamanho.
 
 
 ## 4 - Defina a variável RES_GROUP (Resource Group)
@@ -89,7 +91,8 @@ az acr build --registry $ACR_NAME --image supermodelo:latest --file ./dockerfile
 <hr />
 
 
-## 10 - Por fim, cria os contêineres
+## 10 - Por fim, instrução para cria os contêineres "klusterless"
+Obs.: O processo pode demorar alguns minutos para atualizar o DNS.
 ```
 az container create \
   --resource-group $RES_GROUP \
