@@ -16,6 +16,8 @@ RUN pip install -r /score/requirements.txt
 RUN pip install flask==1.1.0
 RUN pip install markupsafe==2.0.1
 
+RUN pip install --upgrade flask
+
 
 COPY /modelo /score/modelo
 
