@@ -13,6 +13,10 @@ COPY requirements.txt /score
 RUN pip install --upgrade pip
 RUN pip install -r /score/requirements.txt
 
+RUN pip install flask==1.1.0
+RUN pip install markupsafe==2.0.1
+
+
 COPY /modelo /score/modelo
 
 EXPOSE 80
