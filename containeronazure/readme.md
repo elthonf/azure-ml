@@ -22,3 +22,7 @@ git clone https://github.com/elthonf/azure-ml.git
 ```
 
 ## 3 - Entre no diretório `containeronazure`
+```
+cd azure-ml/containeronazure
+```
+
