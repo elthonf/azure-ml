@@ -24,14 +24,14 @@ az group create --resource-group $RES_GROUP --location eastus
 
 
 
+MYUUID=$(python3 myuuid.py)
 
-
-ACR_NAME=acr$(python3 myuuid.py)
+ACR_NAME=acr$(MYUUID)
 az acr create --resource-group $RES_GROUP --location eastus --sku Standard --name $ACR_NAME
 
 
 
-AKV_NAME=kv$(python3 myuuid.py)
+AKV_NAME=kv$(MYUUID)
 echo Key Vault = $AKV_NAME
 az keyvault create --resource-group $RES_GROUP --name $AKV_NAME
 
@@ -56,7 +56,7 @@ az acr build --registry $ACR_NAME --image supermodelo:latest --file ./dockerfile
 
 az container create \
   --resource-group $RES_GROUP \
-  --name acr-tasks \
+  --name aci-modelo \
   --image $ACR_NAME.azurecr.io/supermodelo:latest \
   --registry-login-server $ACR_NAME.azurecr.io \
   --registry-username $(az keyvault secret show --vault-name $AKV_NAME --name $ACR_NAME-pull-usr --query value -o tsv) \

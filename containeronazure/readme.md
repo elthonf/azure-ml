@@ -97,7 +97,7 @@ Obs.: O processo pode demorar alguns minutos para atualizar o DNS.
 ```
 az container create \
   --resource-group $RES_GROUP \
-  --name acr-tasks \
+  --name aci-modelo \
   --image $ACR_NAME.azurecr.io/supermodelo:latest \
   --registry-login-server $ACR_NAME.azurecr.io \
   --registry-username $(az keyvault secret show --vault-name $AKV_NAME --name $ACR_NAME-pull-usr --query value -o tsv) \
