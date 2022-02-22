@@ -26,13 +26,14 @@ az group create --resource-group $RES_GROUP --location eastus
 
 MYUUID=$(python3 myuuid.py)
 
-ACR_NAME=acr$(MYUUID)
+ACR_NAME=acr$MYUUID
+echo Container Registry criado = $AKV_NAME
 az acr create --resource-group $RES_GROUP --location eastus --sku Standard --name $ACR_NAME
 
 
 
-AKV_NAME=kv$(MYUUID)
-echo Key Vault = $AKV_NAME
+AKV_NAME=kv$MYUUID
+echo Key Vault criada = $AKV_NAME
 az keyvault create --resource-group $RES_GROUP --name $AKV_NAME
 
 az keyvault secret set \
