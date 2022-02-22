@@ -1,13 +1,18 @@
 set -x
 
-RES_GROUP=$1
+
 echo Resource Group: $RES_GROUP
 
 
 if [ $# -gt 0 ]
-  then
-    env="$1"
+then
+    RES_GROUP=$1
+else
+    echo "Por favor, informe o REsource Group após ${0) ."
+    exit 400
 fi
+
+exit 400
 
 
 cd `mktemp -d`
