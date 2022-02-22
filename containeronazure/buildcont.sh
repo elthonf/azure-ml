@@ -4,7 +4,7 @@ set -x
 echo Resource Group: $RES_GROUP
 
 
-if [ $# -gt 0 ]
+if [ $# -gt 1 ]
 then
     RES_GROUP=$1
 else
