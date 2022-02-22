@@ -1,9 +1,6 @@
 set -x
 
 
-echo Resource Group: $RES_GROUP
-
-
 if [ $# -gt 1 ]
 then
     RES_GROUP=$1
@@ -11,6 +8,8 @@ else
     echo "Por favor, informe o REsource Group após ${0) ."
     exit 400
 fi
+
+echo Resource Group: $RES_GROUP
 
 exit 400
 
