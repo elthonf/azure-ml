@@ -1,37 +1,39 @@
-set -x
+#!/bin/bash
+set -x #echo on
 
 
-if [ $# -gt 1 ]
+if [ $# -gt 0 ]
 then
     RES_GROUP=$1
 else
-    echo "Por favor, informe o REsource Group após ${0) ."
+    echo "Por favor, informe o parâmetro Resource Group após ${0} "
+    echo "Exemplo:"
+    echo "bash ${0} meugrupo"
     exit 400
 fi
 
 echo Resource Group: $RES_GROUP
 
-exit 400
-
-
-cd `mktemp -d`
-
-
-git clone https://github.com/elthonf/azure-ml.git
-
-cd azure-ml/containeronazure
+cd `mktemp -d` &&
+   echo Diretório temporário criado : $(pwd) &&
+   git clone https://github.com/elthonf/azure-ml.git &&
+   cd azure-ml/containeronazure
 
 
 az group create --resource-group $RES_GROUP --location eastus
 
 
+
+
+
 ACR_NAME=acr$(python3 myuuid.py)
 az acr create --resource-group $RES_GROUP --location eastus --sku Standard --name $ACR_NAME
+
+
 
 AKV_NAME=kv$(python3 myuuid.py)
 echo Key Vault = $AKV_NAME
 az keyvault create --resource-group $RES_GROUP --name $AKV_NAME
-
 
 az keyvault secret set \
   --vault-name $AKV_NAME \
@@ -47,6 +49,8 @@ az keyvault secret set \
   --vault-name $AKV_NAME \
   --name $ACR_NAME-pull-usr \
   --value $(az ad sp list --display-name $ACR_NAME-pull --query [].appId --output tsv)
+
+
 
 az acr build --registry $ACR_NAME --image supermodelo:latest --file ./dockerfile.txt  .
 

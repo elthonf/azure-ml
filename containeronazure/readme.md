@@ -11,27 +11,22 @@ Este processo vai requerer um arquivo de modelo com o nome:
 
 # Instruções
 
-## 1 - Defina a variável RES_GROUP (Resource Group)
+## 1 - Definir a variável RES_GROUP (Resource Group)
 ```
 RES_GROUP=
 ```
 
-## 2 - Crie um diretório temporário
+## 2 - Criar um diretório temporário
+- Criar um diretório temporário
+- Clonar este repositório
+- Entrar no subdiretório `containeronazure`
 ```
-cd `mktemp -d`
-```
-
-## 3 - Clone este repositório
-```
-git clone https://github.com/elthonf/azure-ml.git
-```
-
-## 4 - Entre no diretório `containeronazure`
-```
-cd azure-ml/containeronazure
+cd `mktemp -d` &&
+   git clone https://github.com/elthonf/azure-ml.git &&
+   cd azure-ml/containeronazure
 ```
 
-## 4.1 - Sobreescreva o arquivo do modelo
+## 3 - Sobreescreva o arquivo do modelo (opcional)
 Agora, vc deve substituir o arquivo `azure-ml/containeronazure/modelo/nome_arquivo.pkl` pelo seu modelo.
 
 Isso é interessante pois o arquivo atual, é menor (apenas 16MB) para caber no github, enquanto o seu modelo real pode ter muitos MBs de tamanho.
@@ -41,30 +36,30 @@ Isso é interessante pois o arquivo atual, é menor (apenas 16MB) para caber no 
 
 
 
-## 5 - Caso o grupo não exista, crie-o
+## 4 - Exibir info do grupo.
+Obs.: Caso o grupo não exista, esta instrução também o cria
 ```
 az group create --resource-group $RES_GROUP --location eastus
 ```
 
-## 6 - Crie o container registry (ACR) ou use um já existente dentro do Resource Group
-```
-echo "import uuid" > myuuid.py
-echo "print(str(uuid.uuid4()).replace('-', '')[:20])" >> myuuid.py
-```
+## 5 - Criar um container registry novo dentro do Resource Group
+Obs.: Para este caso estamos usando um nome aleatório
 ```
 ACR_NAME=acr$(python3 myuuid.py)
+echo Container Registry criado = $AKV_NAME
 az acr create --resource-group $RES_GROUP --location eastus --sku Standard --name $ACR_NAME
 ```
 
 
-## 7 - Criar KeyVault
+## 6 - Criar KeyVault
+Obs.: KeyVaults são necessárias para *acessar* imagens customizadas dentro do container registry
 ```
 AKV_NAME=kv$(python3 myuuid.py)
-echo Key Vault = $AKV_NAME
+echo Key Vault criada = $AKV_NAME
 az keyvault create --resource-group $RES_GROUP --name $AKV_NAME
 ```
 
-## 8 - Cria senha e usuario no KV do service principal, usando os usuários do ACR
+## 7 - Criar senha e usuario no KV do service principal, usando os usuários do ACR
 ```
 az keyvault secret set \
   --vault-name $AKV_NAME \
@@ -85,11 +80,11 @@ az keyvault secret set \
 para testar e obter usuario e senha::
 
 ```
-echo $(az keyvault secret show --vault-name $AKV_NAME --name $ACR_NAME-pull-usr --query value -o tsv)
-echo $(az keyvault secret show --vault-name $AKV_NAME --name $ACR_NAME-pull-pwd --query value -o tsv)
+echo "Usuario: " $(az keyvault secret show --vault-name $AKV_NAME --name $ACR_NAME-pull-usr --query value -o tsv)
+echo "Senha: " $(az keyvault secret show --vault-name $AKV_NAME --name $ACR_NAME-pull-pwd --query value -o tsv)
 ```
 
-## 9 - BUILD!! Gera a imagem
+## 8 - BUILD!! Gera a imagem
 ```
 az acr build --registry $ACR_NAME --image supermodelo:latest --file ./dockerfile.txt  .
 ```
@@ -97,7 +92,7 @@ az acr build --registry $ACR_NAME --image supermodelo:latest --file ./dockerfile
 <hr />
 
 
-## 10 - Por fim, instrução para cria os contêineres "klusterless"
+## 9 - Por fim, instrução para cria os contêineres "klusterless"
 Obs.: O processo pode demorar alguns minutos para atualizar o DNS.
 ```
 az container create \
@@ -111,6 +106,8 @@ az container create \
   --query "{FQDN:ipAddress.fqdn}" \
   --output table
 ```
+
+<hr />
 
 
 ## Extras:
