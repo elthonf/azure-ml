@@ -44,8 +44,10 @@ az group create --resource-group $RES_GROUP --location eastus
 
 ## 6 - Crie o container registry (ACR) ou use um já existente dentro do Resource Group
 ```
-ACR_NAME=
-#ou
+echo "import uuid" > myuuid.py
+echo "print(str(uuid.uuid4()).replace('-', '')[:20])" >> myuuid.py
+```
+```
 ACR_NAME=acr$(python3 myuuid.py)
 az acr create --resource-group $RES_GROUP --location eastus --sku Standard --name $ACR_NAME
 ```
