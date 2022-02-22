@@ -121,3 +121,11 @@ az container attach --resource-group $RES_GROUP --name acr-tasks
 
 az container exec --exec-command "/bin/bash" --resource-group $RES_GROUP --name acr-tasks
 ```
+
+## Arquivo Shell Script para executar pela internet:
+
+```
+curl https://raw.githubusercontent.com/elthonf/azure-ml/master/containeronazure/buildcont.sh > buildcont.sh
+bash buildcont.sh
+
+```

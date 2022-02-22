@@ -1,7 +1,14 @@
-
+set -x
 
 RES_GROUP=$1
-echo $RES_GROUP
+echo Resource Group: $RES_GROUP
+
+
+if [ $# -gt 0 ]
+  then
+    env="$1"
+fi
+
 
 cd `mktemp -d`
 
@@ -49,3 +56,4 @@ az container create \
   --dns-name-label acr-tasks-$ACR_NAME \
   --query "{FQDN:ipAddress.fqdn}" \
   --output table
+
