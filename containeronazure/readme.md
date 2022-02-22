@@ -11,31 +11,35 @@ Este processo vai requerer um arquivo de modelo com o nome:
 
 # Instruções
 
-## 1 - Crie um diretório temporário
+## 1 - Defina a variável RES_GROUP (Resource Group)
+```
+RES_GROUP=
+```
+
+## 2 - Crie um diretório temporário
 ```
 cd `mktemp -d`
 ```
 
-## 2 - Clone este repositório
+## 3 - Clone este repositório
 ```
 git clone https://github.com/elthonf/azure-ml.git
 ```
 
-## 3 - Entre no diretório `containeronazure`
+## 4 - Entre no diretório `containeronazure`
 ```
 cd azure-ml/containeronazure
 ```
 
-## 3.1 - Sobreescreva o arquivo do modelo
+## 4.1 - Sobreescreva o arquivo do modelo
 Agora, vc deve substituir o arquivo `azure-ml/containeronazure/modelo/nome_arquivo.pkl` pelo seu modelo.
 
 Isso é interessante pois o arquivo atual, é menor (apenas 16MB) para caber no github, enquanto o seu modelo real pode ter muitos MBs de tamanho.
 
 
-## 4 - Defina a variável RES_GROUP (Resource Group)
-```
-RES_GROUP=
-```
+<hr />
+
+
 
 ## 5 - Caso o grupo não exista, crie-o
 ```
