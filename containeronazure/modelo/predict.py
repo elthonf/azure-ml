@@ -40,7 +40,7 @@ def init():
 
         # meumodelo = joblib.load( './nome_arquivo.pkl')
         print("Carregando modelo (warming model).")
-        meumodelo = joblib.load('./modelo/nome_arquivo.pkl')
+        meumodelo = joblib.load('./modelo/modelo_bin.pkl')
     except Exception as err:
         print(f"Exception: \n{err}")
 
